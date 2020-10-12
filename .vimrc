@@ -18,6 +18,9 @@ endif
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'dense-analysis/ale'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'dyng/ctrlsf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 
@@ -48,4 +51,13 @@ let g:gruvbox_italic=1
 
 colorscheme gruvbox
 
+" Ale configuration
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '💡'
+let g:ale_sign_info = '💡'
+let g:ale_sign_style_error = '💡'
+let g:ale_sign_style_warning = '💡'
+
 set cc=80
+
+set mouse=a

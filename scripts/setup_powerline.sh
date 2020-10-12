@@ -2,11 +2,7 @@
 # Installs powerline. Adds the relevant commands to bashrc.
 source setup_vars.sh
 
-if $IS_WSL; then
-    OUTPUT_PATH=~/.profile
-else
-    OUTPUT_PATH=~/.bashrc
-fi
+OUTPUT_PATH=~/.profile
 
 PYTHON=/usr/bin/python3
 PIP=/usr/bin/pip3
