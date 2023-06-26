@@ -9,6 +9,9 @@
 !.vimrc
 !.vim/
 
+# Exclude Vim Plugged
+.vim/plugged/
+
 # Include Tmux Stuff
 !.tmux.conf
 
