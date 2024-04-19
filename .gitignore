@@ -11,6 +11,9 @@
 # Nuke Vim Plugged though...
 .vim/plugged/
 
+# Exclude Vim Plugged
+.vim/plugged/
+
 # Include Tmux Stuff
 !.tmux.conf
 
