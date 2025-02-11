@@ -8,9 +8,11 @@
 # Include Vim Stuff
 !.vimrc
 !.vim/
-
-# Exclude Vim Plugged
+# Nuke Vim Plugged though...
 .vim/plugged/
+
+# Include Conda Config
+!.condarc
 
 # Include Tmux Stuff
 !.tmux.conf
