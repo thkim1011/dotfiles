@@ -69,3 +69,6 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+let g:ale_floating_preview = 1
+let g:ale_hover_to_preview = 1
+

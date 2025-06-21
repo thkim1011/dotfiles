@@ -1,0 +1,36 @@
+window#waybar {
+    font-family: "RobotoMono Nerd Font";
+    font-size: 12px;
+    background-color: transparent;
+}
+
+window#waybar > .horizontal {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 18px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.modules-left, .modules-right, .modules-center {
+    background-color: #1a5291;
+    border-radius: 18px;
+    padding: 0px 8px 0px 8px;
+}
+
+.module {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+#workspaces button {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-radius: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#workspaces button.active {
+    transition: border 0.5s;
+    border-bottom: 4px solid black;
+}
