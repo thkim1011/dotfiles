@@ -1,0 +1,12 @@
+[Default Applications]
+application/pdf=org.gnome.Papers.desktop
+x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/everest=/home/tkim/.local/share/applications/Olympus.desktop
+text/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
+
+[Added Associations]
+application/pdf=org.gnome.Evince.desktop;
