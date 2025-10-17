@@ -135,10 +135,10 @@
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate"
         }
-    },
-    "custom/recording": {
-        "exec": "transcribe status && echo '{\"text\":\"🔴\",\"tooltip\":\"Recording\"}' || echo '{\"text\":\"⚪\",\"tooltip\":\"Not Recording\"}'",
-        "return-type": "json",
-        "interval": 1
+    }
+//    "custom/recording": {
+//        "exec": "transcribe status && echo '{\"text\":\"🔴\",\"tooltip\":\"Recording\"}' || echo '{\"text\":\"⚪\",\"tooltip\":\"Not Recording\"}'",
+//        "return-type": "json",
+//        "interval": 1
     }
 }

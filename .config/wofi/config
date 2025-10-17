@@ -3,4 +3,4 @@ allow_images=true
 term=kitty
 matching=fuzzy
 insensitive=true
-ignore_metadata=true
+drun-ignore_metadata=true
