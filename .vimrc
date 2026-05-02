@@ -16,8 +16,6 @@ else
 endif
 
 Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'dense-analysis/ale'
-Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'dyng/ctrlsf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

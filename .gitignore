@@ -25,3 +25,6 @@
 
 # Include texmf
 !texmf/
+
+# Include waybar
+!.config/waybar/
