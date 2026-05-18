@@ -1,144 +1,123 @@
-// -*- mode: jsonc -*-
+// ─────────────────────────────────────────────────────────────────
+// Tidepool Neon — Waybar layout
+// Drop into: ~/.config/waybar/config.jsonc
+// Requires a Nerd Font (e.g. JetBrainsMono Nerd Font, Symbols Nerd Font)
+// ─────────────────────────────────────────────────────────────────
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    // "height": 0, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
-    "modules-left": [
-        "hyprland/workspaces",
-        "custom/media"
-    ],
-    "modules-center": [
-        "clock"
-    ],
-    "modules-right": [
-        "custom/recording",
-        "idle_inhibitor",
-        "pulseaudio",
-        "network",
-        "cpu",
-        "memory",
-        "temperature",
-        "hyprland/language",
-        "tray",
-        "custom/power"
-    ],
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
+  "layer": "top",
+  "position": "top",
+  "height": 38,
+  "spacing": 6,
+  "margin-top": 8,
+  "margin-left": 8,
+  "margin-right": 8,
+  "reload_style_on_change": true,
+
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["mpris", "clock"],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "pulseaudio",
+    "network",
+    "bluetooth",
+    "battery",
+    "hyprland/language",
+    "custom/power",
+  ],
+
+  "custom/launcher": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "wofi --show drun",
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "on-click": "activate",
+    "sort-by-number": true,
+    "persistent-workspaces": { "*": 6 },
+  },
+
+  "hyprland/window": {
+    "format": "  {}",
+    "max-length": 60,
+    "separate-outputs": true,
+    "rewrite": {
+      "(.*) — Mozilla Firefox": "󰈹 $1",
+      "(.*) - Visual Studio Code": "󰨞 $1",
+      "(.*) - kitty": " $1",
     },
-    "tray": {
-        // "icon-size": 21,
-        "spacing": 10
-        // "icons": {
-        //   "blueman": "bluetooth",
-        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
+  },
+
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} {dynamic}",
+    "player-icons": { "default": "", "spotify": "" },
+    "status-icons": { "paused": "" },
+    "dynamic-len": 32,
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "  {:%H:%M}  {:%a %b %d}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "format": {
+        "months": "<span color='#5ed3f0'><b>{}</b></span>",
+        "days": "<span color='#e2eaff'>{}</span>",
+        "weeks": "<span color='#9d7df0'><b>W{}</b></span>",
+        "weekdays": "<span color='#f0c46e'><b>{}</b></span>",
+        "today": "<span color='#f06ec0'><b><u>{}</u></b></span>",
+      },
     },
-    "clock": {
-        "format": "{:%B %d %I:%M %p}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode"          : "year",
-            "mode-mon-col"  : 3,
-            "weeks-pos"     : "right",
-            "on-scroll"     : 1,
-            "format": {
-                "months":     "<span color='#ffead3'><b>{}</b></span>",
-                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-            }
-        },
-        "actions":  {
-            "on-click-right": "mode",
-            "on-scroll-up": "tz_up",
-            "on-scroll-down": "tz_down",
-            "on-scroll-up": "shift_up",
-            "on-scroll-down": "shift_down"
-        }
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "backlight": {
-        // "device": "acpi_video1",
-        "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {text}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
-    },
-    "custom/power": {
-        "format" : "⏻ ",
-        "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-        "menu-actions": {
-            "shutdown": "shutdown",
-            "reboot": "reboot",
-            "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
-        }
-    }
-//    "custom/recording": {
-//        "exec": "transcribe status && echo '{\"text\":\"🔴\",\"tooltip\":\"Recording\"}' || echo '{\"text\":\"⚪\",\"tooltip\":\"Not Recording\"}'",
-//        "return-type": "json",
-//        "interval": 1
-    }
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": "  {usage}%",
+    "tooltip": false,
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "  {used:0.1f}G",
+    "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "  {volume}%",
+    "format-muted": "  muted",
+    "format-icons": { "default": ["", "", ""] },
+    "scroll-step": 5,
+    "on-click": "ags request toggle volume-menu $(hyprctl cursorpos | cut -d, -f1)",
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": " connected",
+    "format-disconnected": " offline",
+    "tooltip-format": "{ipaddr}  ({signalStrength}%)",
+    "on-click": "nm-connection-editor",
+  },
+
+  "bluetooth": {
+    "format": " ",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+  },
+
+  "hyprland/language": {
+    "format": "  {short}",
+  },
+
+  "custom/power": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "wlogout",
+  },
 }

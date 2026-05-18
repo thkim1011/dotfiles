@@ -1,36 +1,172 @@
+/* ─────────────────────────────────────────────────────────────────
+   Tidepool Neon — Waybar styling (segmented pills)
+   Drop into: ~/.config/waybar/style.css
+   Pair with the matching config.jsonc.
+   ───────────────────────────────────────────────────────────────── */
+
+/* Palette */
+@define-color bg          #0f1420;
+@define-color bg_alt      #161d2e;
+@define-color surface     #1d2640;
+@define-color surface_hi  #283354;
+@define-color border      #34416b;
+@define-color text        #e2eaff;
+@define-color muted       #8093c3;
+@define-color accent      #5ed3f0;  /* electric cyan */
+@define-color accent2     #9d7df0;  /* periwinkle   */
+@define-color accent3     #f06ec0;  /* magenta      */
+@define-color warn        #f0c46e;
+@define-color danger      #f06e85;
+
+* {
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+/* The bar itself — floating, blurred, rounded */
 window#waybar {
-    font-family: "RobotoMono Nerd Font";
-    font-size: 12px;
-    background-color: transparent;
+  background: rgba(15, 20, 32, 0.82);
+  color: @text;
+  border: 1px solid alpha(@accent, 0.22);
+  border-radius: 12px;
+  /* Requires Hyprland blur on the layer (see hyprland.conf snippet) */
 }
 
-window#waybar > .horizontal {
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 18px;
-    margin-left: 20px;
-    margin-right: 20px;
+/* Each module gets pill chrome */
+#workspaces,
+#window,
+#mpris,
+#clock,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#language,
+#custom-launcher,
+#custom-power {
+  background-color: rgba(29, 38, 64, 0.95);
+  border: 1px solid alpha(@accent, 0.22);
+  border-radius: 8px;
+  padding: 2px 12px;
+  margin: 4px 3px;
+  color: @text;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
-.modules-left, .modules-right, .modules-center {
-    background-color: #1a5291;
-    border-radius: 18px;
-    padding: 0px 8px 0px 8px;
+/* Launcher = primary accent */
+#custom-launcher {
+  color: @accent;
+  background-color: alpha(@accent, 0.16);
+  border-color: alpha(@accent, 0.45);
+  padding: 2px 14px;
+  font-size: 14px;
+}
+#custom-launcher:hover {
+  background-color: alpha(@accent, 0.28);
 }
 
-.module {
-    margin-left: 6px;
-    margin-right: 6px;
+/* Workspaces — pill containing pill-buttons */
+#workspaces {
+  padding: 2px 5px;
 }
-
 #workspaces button {
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    border-radius: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+  color: @muted;
+  background: transparent;
+  padding: 0 8px;
+  margin: 0 2px;
+  border-radius: 6px;
+  min-width: 18px;
+  transition: all 150ms ease;
+}
+#workspaces button.empty {
+  color: @muted;
+}
+#workspaces button.visible,
+#workspaces button.occupied {
+  color: @text;
+  border: 1px solid @border;
+}
+#workspaces button.active {
+  color: @accent;
+  background-color: alpha(@accent, 0.18);
+  border: 1px solid alpha(@accent, 0.55);
+  box-shadow: 0 0 0 1px alpha(@accent, 0.15);
+}
+#workspaces button:hover {
+  color: @accent;
+  background-color: alpha(@accent, 0.10);
 }
 
-#workspaces button.active {
-    transition: border 0.5s;
-    border-bottom: 4px solid black;
+/* Window title — periwinkle accent on the icon */
+#window {
+  color: @text;
+  font-weight: 500;
 }
+window#waybar.empty #window {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Center modules */
+#mpris       { color: @text;    border-color: alpha(@accent3, 0.30); }
+#clock {
+  color: @accent;
+  font-weight: 600;
+  background: linear-gradient(180deg, alpha(@accent, 0.20), alpha(@accent, 0.06));
+  border-color: alpha(@accent, 0.55);
+  box-shadow: 0 0 0 1px alpha(@accent, 0.15), 0 4px 12px alpha(@accent, 0.18);
+  font-feature-settings: "tnum";
+}
+
+/* Right side — color the icons subtly per category */
+#cpu         { color: @accent2; }
+#memory      { color: @accent3; }
+#pulseaudio  { color: @accent;  }
+#network     { color: @accent;  }
+#bluetooth   { color: @accent2; }
+#battery     { color: @warn;    }
+#language    { color: @muted;   }
+
+/* Battery states */
+#battery.charging,
+#battery.plugged    { color: @accent; }
+#battery.warning    { color: @warn;   }
+#battery.critical:not(.charging) {
+  color: @danger;
+  border-color: alpha(@danger, 0.55);
+  background: alpha(@danger, 0.12);
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink {
+  to { background-color: alpha(@danger, 0.22); }
+}
+
+/* Audio muted */
+#pulseaudio.muted   { color: @muted; }
+
+/* Power button */
+#custom-power {
+  color: @danger;
+  border-color: alpha(@danger, 0.40);
+  padding: 2px 14px;
+  font-size: 13px;
+}
+#custom-power:hover {
+  background-color: alpha(@danger, 0.18);
+  color: @danger;
+}
+
+/* Tooltips */
+tooltip {
+  background: @bg_alt;
+  color: @text;
+  border: 1px solid alpha(@accent, 0.30);
+  border-radius: 8px;
+}
+tooltip label { padding: 2px 6px; }
