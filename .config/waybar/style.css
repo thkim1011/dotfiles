@@ -1,172 +1,145 @@
-/* ─────────────────────────────────────────────────────────────────
-   Tidepool Neon — Waybar styling (segmented pills)
-   Drop into: ~/.config/waybar/style.css
-   Pair with the matching config.jsonc.
-   ───────────────────────────────────────────────────────────────── */
-
 /* Palette */
-@define-color bg          #0f1420;
-@define-color bg_alt      #161d2e;
-@define-color surface     #1d2640;
-@define-color surface_hi  #283354;
-@define-color border      #34416b;
-@define-color text        #e2eaff;
-@define-color muted       #8093c3;
-@define-color accent      #5ed3f0;  /* electric cyan */
-@define-color accent2     #9d7df0;  /* periwinkle   */
-@define-color accent3     #f06ec0;  /* magenta      */
-@define-color warn        #f0c46e;
-@define-color danger      #f06e85;
+@define-color bg #161b26;
+@define-color fg #cdd6e8;
+@define-color surface #1d2640;
+@define-color surface_hi #283354;
+@define-color border #34416b;
+
+/* ANSI 16 Colors */
+@define-color black #1a2030;
+@define-color red #c97b86;
+@define-color green #88b8a3;
+@define-color yellow #d4b483;
+@define-color blue #7eb6d6;
+@define-color magenta #a8a3d6;
+@define-color cyan #8fc4be;
+@define-color white #a8b3c9;
+
+@define-color bright-black #3a4664;
+@define-color bright-red #d68a93;
+@define-color bright-green #9fc9b4;
+@define-color bright-yellow #e0c598;
+@define-color bright-blue #9bc8e2;
+@define-color bright-magenta #b8b3e0;
+@define-color bright-cyan #a3d4cf;
+@define-color bright-white #cdd6e8;
 
 * {
-  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
-  font-size: 12.5px;
+  font-family: "Noto Sans Mono", "JetBrains Nerd Font", monospace;
+  font-size: 14px;
   font-weight: 500;
   border: none;
-  border-radius: 0;
   min-height: 0;
 }
 
-/* The bar itself — floating, blurred, rounded */
 window#waybar {
-  background: rgba(15, 20, 32, 0.82);
+  background: @black;
   color: @text;
-  border: 1px solid alpha(@accent, 0.22);
-  border-radius: 12px;
-  /* Requires Hyprland blur on the layer (see hyprland.conf snippet) */
 }
 
-/* Each module gets pill chrome */
+/* Set border radius for everything, everywhere, all at once */
+window#waybar,
 #workspaces,
 #window,
-#mpris,
-#clock,
-#cpu,
-#memory,
-#pulseaudio,
-#network,
-#bluetooth,
-#battery,
-#language,
-#custom-launcher,
 #custom-power {
-  background-color: rgba(29, 38, 64, 0.95);
-  border: 1px solid alpha(@accent, 0.22);
-  border-radius: 8px;
-  padding: 2px 12px;
-  margin: 4px 3px;
+  border-radius: 16px;
+}
+
+/* Tooltips */
+tooltip {
+  background: @bg;
   color: @text;
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  border: 1px solid alpha(@accent, 0.30);
 }
 
-/* Launcher = primary accent */
-#custom-launcher {
-  color: @accent;
-  background-color: alpha(@accent, 0.16);
-  border-color: alpha(@accent, 0.45);
-  padding: 2px 14px;
-  font-size: 14px;
-}
-#custom-launcher:hover {
-  background-color: alpha(@accent, 0.28);
+tooltip label {
+  padding: 2px 6px;
 }
 
-/* Workspaces — pill containing pill-buttons */
+/* Workspaces */
 #workspaces {
-  padding: 2px 5px;
-}
-#workspaces button {
-  color: @muted;
-  background: transparent;
-  padding: 0 8px;
-  margin: 0 2px;
-  border-radius: 6px;
-  min-width: 18px;
-  transition: all 150ms ease;
-}
-#workspaces button.empty {
-  color: @muted;
-}
-#workspaces button.visible,
-#workspaces button.occupied {
-  color: @text;
-  border: 1px solid @border;
-}
-#workspaces button.active {
-  color: @accent;
-  background-color: alpha(@accent, 0.18);
-  border: 1px solid alpha(@accent, 0.55);
-  box-shadow: 0 0 0 1px alpha(@accent, 0.15);
-}
-#workspaces button:hover {
-  color: @accent;
-  background-color: alpha(@accent, 0.10);
+  background-color: @bright-black;
+  padding: 2px 12px;
 }
 
-/* Window title — periwinkle accent on the icon */
-#window {
-  color: @text;
-  font-weight: 500;
+#workspaces button {
+  color: @fg;
 }
+
+#workspaces button.focused {
+  font-weight: bold;
+}
+
+/* Window title */
+#window {
+  background-color: @blue;
+  color: @black;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 window#waybar.empty #window {
   background: transparent;
   border-color: transparent;
 }
 
-/* Center modules */
-#mpris       { color: @text;    border-color: alpha(@accent3, 0.30); }
+/* Right Modules */
+#custom-power,
+#language,
+#bluetooth,
+#network,
+#pulseaudio,
+#memory,
+#cpu,
 #clock {
-  color: @accent;
-  font-weight: 600;
-  background: linear-gradient(180deg, alpha(@accent, 0.20), alpha(@accent, 0.06));
-  border-color: alpha(@accent, 0.55);
-  box-shadow: 0 0 0 1px alpha(@accent, 0.15), 0 4px 12px alpha(@accent, 0.18);
-  font-feature-settings: "tnum";
+  color: @black;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
 }
 
-/* Right side — color the icons subtly per category */
-#cpu         { color: @accent2; }
-#memory      { color: @accent3; }
-#pulseaudio  { color: @accent;  }
-#network     { color: @accent;  }
-#bluetooth   { color: @accent2; }
-#battery     { color: @warn;    }
-#language    { color: @muted;   }
-
-/* Battery states */
-#battery.charging,
-#battery.plugged    { color: @accent; }
-#battery.warning    { color: @warn;   }
-#battery.critical:not(.charging) {
-  color: @danger;
-  border-color: alpha(@danger, 0.55);
-  background: alpha(@danger, 0.12);
-  animation: blink 1s steps(2) infinite;
-}
-@keyframes blink {
-  to { background-color: alpha(@danger, 0.22); }
-}
-
-/* Audio muted */
-#pulseaudio.muted   { color: @muted; }
-
-/* Power button */
 #custom-power {
-  color: @danger;
-  border-color: alpha(@danger, 0.40);
-  padding: 2px 14px;
-  font-size: 13px;
-}
-#custom-power:hover {
-  background-color: alpha(@danger, 0.18);
-  color: @danger;
+  background-color: @red;
+  border-radius: 16px;
 }
 
-/* Tooltips */
-tooltip {
-  background: @bg_alt;
-  color: @text;
-  border: 1px solid alpha(@accent, 0.30);
-  border-radius: 8px;
+#language {
+  background-color: @yellow;
 }
-tooltip label { padding: 2px 6px; }
+
+.modules-right>:nth-child(8) {
+  background-color: @yellow;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+#bluetooth,
+.modules-right>:nth-child(7) {
+  background-color: @blue;
+}
+
+#network,
+.modules-right>:nth-child(6) {
+  background-color: @green;
+}
+
+#pulseaudio,
+.modules-right>:nth-child(5) {
+  background-color: @magenta;
+}
+
+#memory,
+.modules-right>:nth-child(4) {
+  background-color: @yellow;
+}
+
+#cpu,
+.modules-right>:nth-child(3) {
+  background-color: @blue;
+}
+
+#clock,
+.modules-right>:nth-child(2) {
+  background-color: @green;
+}
