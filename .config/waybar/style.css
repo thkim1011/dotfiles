@@ -1,10 +1,7 @@
 /* Palette */
 @define-color bg #161b26;
 @define-color fg #cdd6e8;
-@define-color surface #1d2640;
-@define-color surface_hi #283354;
-@define-color border #34416b;
-
+@define-color bgAlt #1e2535;
 /* ANSI 16 Colors */
 @define-color black #1a2030;
 @define-color red #c97b86;
@@ -33,12 +30,15 @@
 }
 
 window#waybar {
-  background: @black;
+  background: @bg;
   color: @text;
+  border-radius: 22px;
 }
 
-/* Set border radius for everything, everywhere, all at once */
-window#waybar,
+window#waybar>box {
+  padding: 6px;
+}
+
 #workspaces,
 #window,
 #custom-power {
@@ -58,24 +58,31 @@ tooltip label {
 
 /* Workspaces */
 #workspaces {
-  background-color: @bright-black;
-  padding: 2px 12px;
+  background-color: @bgAlt;
 }
 
 #workspaces button {
   color: @fg;
+  border-radius: 14px;
 }
 
-#workspaces button.focused {
-  font-weight: bold;
+#workspaces button:not(:last-child) {
+  margin-right: 2px;
+}
+
+#workspaces button.visible {
+  color: @blue;
+  background-color: @bright-black;
+}
+
+#workspaces button:hover {
+  background: none;
+  background-color: @bright-black;
 }
 
 /* Window title */
 #window {
-  background-color: @blue;
-  color: @black;
-  padding-left: 12px;
-  padding-right: 12px;
+  color: @fg;
 }
 
 window#waybar.empty #window {
@@ -83,7 +90,8 @@ window#waybar.empty #window {
   border-color: transparent;
 }
 
-/* Right Modules */
+/* Center and Right Modules */
+#window,
 #custom-power,
 #language,
 #bluetooth,
@@ -92,54 +100,41 @@ window#waybar.empty #window {
 #memory,
 #cpu,
 #clock {
-  color: @black;
   padding-left: 12px;
   padding-right: 12px;
-  border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
+  border-radius: 16px;
+  background-color: @bgAlt;
+  margin-left: 6px;
 }
 
 #custom-power {
-  background-color: @red;
-  border-radius: 16px;
+  color: @red;
 }
 
 #language {
-  background-color: @yellow;
+  color: @yellow;
 }
 
-.modules-right>:nth-child(8) {
-  background-color: @yellow;
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 16px;
+#bluetooth {
+  color: @blue;
 }
 
-#bluetooth,
-.modules-right>:nth-child(7) {
-  background-color: @blue;
+#network {
+  color: @green;
 }
 
-#network,
-.modules-right>:nth-child(6) {
-  background-color: @green;
+#pulseaudio {
+  color: @magenta;
 }
 
-#pulseaudio,
-.modules-right>:nth-child(5) {
-  background-color: @magenta;
+#memory {
+  color: @yellow;
 }
 
-#memory,
-.modules-right>:nth-child(4) {
-  background-color: @yellow;
+#cpu {
+  color: @blue;
 }
 
-#cpu,
-.modules-right>:nth-child(3) {
-  background-color: @blue;
-}
-
-#clock,
-.modules-right>:nth-child(2) {
-  background-color: @green;
+#clock {
+  color: @green;
 }

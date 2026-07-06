@@ -62,14 +62,14 @@
     "tooltip-format": "{used:0.1f}G / {total:0.1f}G"
   },
   "pulseaudio": {
-    "format": " {volume}%",
+    "format": "  {volume}%",
     "format-bluetooth": "󰂰 {volume}%",
     "format-muted": " muted",
     "scroll-step": 5,
     "on-click": "ags request toggle volume-menu $(hyprctl cursorpos | cut -d, -f1)"
   },
   "network": {
-    "format-wifi": " {essid}",
+    "format-wifi": "  {essid}",
     "format-ethernet": " connected",
     "format-disconnected": "󰖪 offline",
     "tooltip-format": "{ipaddr}  ({signalStrength}%)",
